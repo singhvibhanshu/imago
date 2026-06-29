@@ -1,43 +1,47 @@
 # imago
 
-**A fully offline image toolkit. Convert, compress and resize images entirely on your own machine — nothing is ever uploaded.**
+[![npm version](https://img.shields.io/npm/v/@singhvibhanshu/imago.svg)](https://www.npmjs.com/package/@singhvibhanshu/imago)
+[![license](https://img.shields.io/npm/l/@singhvibhanshu/imago.svg)](LICENSE)
+![platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20Linux%20%7C%20Windows-blue)
 
-Most "convert JPG to PNG" or "compress image to 50KB" websites work by uploading
-your photo to *their* servers. `imago` does the same jobs as a local command-line
-tool, so your images never leave your computer. No internet required, no accounts,
-no privacy worries.
+**A fully offline image toolkit — convert, compress and resize images right on your own machine. Your photos are never uploaded.**
 
-It ships as a single self-contained binary (no runtime, no system libraries, no cgo).
+Most "convert to PNG" or "compress to 50 KB" websites work by uploading your
+photo to *their* servers, where it might be stored, cached, or misused. `imago`
+does the exact same jobs as a local command-line tool, so your images never
+leave your computer. No internet, no accounts, no privacy worries.
 
-## Features
+It ships as a single self-contained binary per platform — no runtime, no system
+libraries, no cgo.
 
-- **Convert** between `jpg`, `jpeg`, `png`, `webp`, `gif`, `bmp`, `tiff`
-- **Compress** by quality, or down to a **target file size** (e.g. "under 50 KB")
-- **Resize** by exact pixel dimensions or percentage, with aspect-ratio lock
-- **Batch** process an entire folder in one command
+> Installing needs internet (to fetch the package once). The tool itself runs
+> 100% offline afterwards.
 
 ## Install
 
-### From source (Go)
 ```bash
-git clone https://github.com/singhvibhanshu/imago.git
-cd imago
-go build -o imago .
-# optional: move it onto your PATH
-mv imago /usr/local/bin/
-```
+# npm (global)
+npm install -g @singhvibhanshu/imago
 
-Or, once published, install with `go install`:
-```bash
+# or run on demand, no install
+npx @singhvibhanshu/imago --help
+
+# Bun (uses the npm registry too)
+bun add -g @singhvibhanshu/imago
+bunx @singhvibhanshu/imago --help
+
+# Go developers
 go install github.com/singhvibhanshu/imago@latest
 ```
 
-### From npm
-```bash
-npm install -g @singhvibhanshu/imago
-```
+## Features
 
-Requires Go 1.25+ to build from source. Once built, the binary needs nothing else.
+| Command    | What it does |
+|------------|--------------|
+| `convert`  | Convert between `jpg`, `png`, `webp`, `gif`, `bmp`, `tiff` |
+| `compress` | Shrink by quality, or down to a **target file size** (e.g. under 50 KB) |
+| `resize`   | Resize by exact pixel dimensions or percentage, aspect ratio preserved |
+| *(batch)*  | Point any command at a folder to process every image at once |
 
 ## Usage
 
@@ -52,14 +56,14 @@ imago convert ./album --to webp --out ./webp_album      # whole folder
 ```bash
 imago compress photo.jpg --quality 70                   # fixed quality
 imago compress photo.jpg --target 50KB                  # fit under 50 KB
-imago compress photo.jpg --target 1.5MB --to jpg
+imago compress photo.jpg --target 1.5MB
 imago compress ./photos --target 100KB --out ./small    # whole folder
 ```
 
-When you give a `--target`, imago first lowers JPEG quality to fit; if that isn't
+When you pass `--target`, imago first lowers JPEG quality to fit; if that isn't
 enough (or the format is lossless, like PNG), it automatically scales the
 dimensions down until the file fits. This is exactly what competitive-exam and
-government form uploads usually require ("photo must be under 50 KB").
+government form uploads demand — *"photo must be under 50 KB"*.
 
 ### Resize
 ```bash
@@ -70,6 +74,8 @@ imago resize photo.jpg --percent 50                     # half size
 imago resize ./photos --width 1024 --out ./resized      # whole folder
 ```
 
+Run `imago <command> --help` to see every flag for a command.
+
 ## Global flags
 
 | Flag | Description |
@@ -79,21 +85,55 @@ imago resize ./photos --width 1024 --out ./resized      # whole folder
 | `--overwrite` | Allow overwriting an existing file |
 | `-q, --quiet` | Only print errors |
 
-## How output files are named
+## Output file names
+
+By default, outputs are written next to the input and the original is **never**
+overwritten:
 
 - **convert** → same name, new extension (`photo.jpg` → `photo.png`)
 - **compress** → `.min` suffix (`photo.jpg` → `photo.min.jpg`)
 - **resize** → dimensions in the name (`photo.jpg` → `photo.600x400.jpg`)
 
-By default outputs are written next to the input and the original is never
-overwritten. Use `--out` to send results to a specific file or folder.
+Use `--out` to send results to a specific file or folder.
+
+## How it works
+
+This package ships prebuilt native binaries written in Go. On install, your
+package manager downloads only the small binary matching your operating system
+and CPU (via per-platform `optionalDependencies`). No Go toolchain or
+compilation is required to use it.
+
+## Build from source
+
+```bash
+git clone https://github.com/singhvibhanshu/imago.git
+cd imago
+go build -o imago .
+./imago --help
+```
+
+Requires Go 1.25+ to build from source.
+
+## Releasing (maintainers)
+
+1. Bump the version in `npm/imago/package.json`.
+2. Commit, then tag and push:
+   ```bash
+   git tag v0.1.1
+   git push --tags
+   ```
+3. GitHub Actions cross-compiles every platform and publishes to npm
+   automatically (see `.github/workflows/publish.yml`).
+
+To publish manually instead: `bash scripts/build-npm.sh && bash scripts/publish-npm.sh`.
 
 ## Notes
 
 - WebP output uses a pure-Go **lossless** encoder, so `--quality` is ignored for
-  WebP; size targeting for WebP falls back to dimension scaling.
-- Decoding supports all listed formats plus auto-detection regardless of extension.
+  WebP; size targeting for WebP relies on dimension scaling.
+- Decoding works for all listed formats and auto-detects the format regardless
+  of file extension.
 
 ## License
 
-MIT (or your choice).
+[MIT](LICENSE) © Vibhanshu Singh

@@ -1,0 +1,52 @@
+name: Publish to npm
+
+# Publishes all imago packages whenever you push a version tag, e.g.:
+#   git tag v0.1.1 && git push --tags
+#
+# Requires a repository secret named NPM_TOKEN containing an npm granular
+# access token with read+write permission to the @singhvibhanshu packages.
+# (Settings -> Secrets and variables -> Actions -> New repository secret)
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "stable"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Verify tag matches package version
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG="$(node -p "require('./npm/imago/package.json').version")"
+          echo "Tag version: $TAG / package.json version: $PKG"
+          if [ "$TAG" != "$PKG" ]; then
+            echo "::error::Tag v$TAG does not match npm/imago/package.json ($PKG). Bump the version first."
+            exit 1
+          fi
+
+      - name: Cross-compile all platform binaries
+        run: bash scripts/build-npm.sh
+
+      - name: Publish to npm
+        run: bash scripts/publish-npm.sh
+        env:
+          # setup-node wires this into ~/.npmrc; no OTP needed for a token.
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

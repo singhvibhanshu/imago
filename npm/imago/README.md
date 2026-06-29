@@ -9,6 +9,10 @@ computer.
 ```bash
 npm install -g @singhvibhanshu/imago
 imago --help
+
+# or with npx / bun, no global install:
+npx @singhvibhanshu/imago --help
+bunx @singhvibhanshu/imago --help
 ```
 
 > Installation needs internet (to fetch the package), but the tool itself runs

@@ -9,7 +9,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"imago/internal/imageio"
+	"github.com/singhvibhanshu/imago/internal/imageio"
 )
 
 // Shared flags available to every subcommand.

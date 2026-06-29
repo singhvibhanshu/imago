@@ -18,15 +18,26 @@ It ships as a single self-contained binary (no runtime, no system libraries, no 
 
 ## Install
 
+### From source (Go)
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/singhvibhanshu/imago.git
 cd imago
 go build -o imago .
 # optional: move it onto your PATH
 mv imago /usr/local/bin/
 ```
 
-Requires Go 1.25+ to build. Once built, the binary needs nothing else.
+Or, once published, install with `go install`:
+```bash
+go install github.com/singhvibhanshu/imago@latest
+```
+
+### From npm
+```bash
+npm install -g @singhvibhanshu/imago
+```
+
+Requires Go 1.25+ to build from source. Once built, the binary needs nothing else.
 
 ## Usage
 

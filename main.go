@@ -5,7 +5,7 @@ package main
 import (
 	"os"
 
-	"imago/cmd"
+	"github.com/singhvibhanshu/imago/cmd"
 )
 
 func main() {

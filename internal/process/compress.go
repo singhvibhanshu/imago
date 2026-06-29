@@ -3,7 +3,7 @@ package process
 import (
 	"image"
 
-	"imago/internal/imageio"
+	"github.com/singhvibhanshu/imago/internal/imageio"
 )
 
 // CompressResult reports what the compressor actually produced.

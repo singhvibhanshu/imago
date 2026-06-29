@@ -5,8 +5,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"imago/internal/imageio"
-	"imago/internal/process"
+	"github.com/singhvibhanshu/imago/internal/imageio"
+	"github.com/singhvibhanshu/imago/internal/process"
 )
 
 var (

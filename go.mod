@@ -1,4 +1,4 @@
-module imago
+module github.com/singhvibhanshu/imago
 
 go 1.25.0
 

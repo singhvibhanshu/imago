@@ -1,0 +1,37 @@
+{
+  "name": "@singhvibhanshu/imago",
+  "version": "0.1.0",
+  "description": "Fully offline image toolkit: convert, compress and resize images locally. Your photos are never uploaded.",
+  "bin": {
+    "imago": "bin/imago.js"
+  },
+  "files": [
+    "bin/imago.js",
+    "README.md"
+  ],
+  "keywords": [
+    "image",
+    "convert",
+    "compress",
+    "resize",
+    "webp",
+    "jpeg",
+    "jpg",
+    "png",
+    "offline",
+    "privacy",
+    "cli",
+    "image-processing"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=14"
+  },
+  "optionalDependencies": {
+    "@singhvibhanshu/imago-darwin-arm64": "0.1.0",
+    "@singhvibhanshu/imago-darwin-x64": "0.1.0",
+    "@singhvibhanshu/imago-linux-x64": "0.1.0",
+    "@singhvibhanshu/imago-linux-arm64": "0.1.0",
+    "@singhvibhanshu/imago-win32-x64": "0.1.0"
+  }
+}

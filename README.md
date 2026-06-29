@@ -41,6 +41,7 @@ go install github.com/singhvibhanshu/imago@latest
 | `convert`  | Convert between `jpg`, `png`, `webp`, `gif`, `bmp`, `tiff` |
 | `compress` | Shrink by quality, or down to a **target file size** (e.g. under 50 KB) |
 | `resize`   | Resize by exact pixel dimensions or percentage, aspect ratio preserved |
+| `strip`    | Remove hidden metadata (EXIF, **GPS location**, timestamps) — losslessly |
 | *(batch)*  | Point any command at a folder to process every image at once |
 
 ## Usage
@@ -73,6 +74,21 @@ imago resize photo.jpg --width 600 --height 800 --stretch   # exact, ignore rati
 imago resize photo.jpg --percent 50                     # half size
 imago resize ./photos --width 1024 --out ./resized      # whole folder
 ```
+
+### Strip metadata (privacy)
+```bash
+imago strip photo.jpg                                   # remove EXIF/GPS, lossless
+imago strip ./photos --out ./clean                      # whole folder
+```
+
+Photos from phones embed EXIF metadata — including the **exact GPS coordinates**
+where the picture was taken. `strip` removes it without changing the image: for
+JPEG and PNG the pixel data is left byte-for-byte identical, only the metadata is
+deleted.
+
+> `convert`, `compress` and `resize` already produce metadata-free output as a
+> side effect — `strip` is for when you want to scrub metadata *without*
+> otherwise altering the image.
 
 Run `imago <command> --help` to see every flag for a command.
 

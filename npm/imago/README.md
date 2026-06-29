@@ -23,6 +23,7 @@ bunx @singhvibhanshu/imago --help
 - **Convert** between `jpg`, `png`, `webp`, `gif`, `bmp`, `tiff`
 - **Compress** by quality, or down to a **target file size** (e.g. under 50 KB)
 - **Resize** by pixel dimensions or percentage, aspect ratio preserved
+- **Strip** hidden metadata (EXIF, GPS location, timestamps) — losslessly
 - **Batch** process whole folders
 
 ## Examples
@@ -31,6 +32,7 @@ bunx @singhvibhanshu/imago --help
 imago convert photo.jpeg --to png
 imago compress photo.jpg --target 50KB        # great for exam/form uploads
 imago resize photo.jpg --width 600 --height 800
+imago strip photo.jpg                          # remove EXIF/GPS metadata
 imago compress ./photos --target 100KB --out ./small   # whole folder
 ```
 

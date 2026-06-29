@@ -10,6 +10,18 @@ VERSION="$(node -p "require('./npm/imago/package.json').version")"
 
 echo "Building imago v${VERSION} for all platforms..."
 
+# Keep the main package's optionalDependencies pinned to the current version, so
+# bumping the version only requires editing npm/imago/package.json once.
+node -e '
+  const fs = require("fs");
+  const p = "npm/imago/package.json";
+  const pkg = JSON.parse(fs.readFileSync(p, "utf8"));
+  for (const dep of Object.keys(pkg.optionalDependencies || {})) {
+    pkg.optionalDependencies[dep] = pkg.version;
+  }
+  fs.writeFileSync(p, JSON.stringify(pkg, null, 2) + "\n");
+'
+
 # Format: GOOS GOARCH npmPlatform npmCpu ext
 targets=(
   "darwin  arm64 darwin arm64 "

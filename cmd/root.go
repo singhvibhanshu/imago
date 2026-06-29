@@ -44,7 +44,7 @@ func Execute() int {
 	rootCmd.PersistentFlags().BoolVar(&flagOverwrite, "overwrite", false, "allow overwriting an existing file")
 	rootCmd.PersistentFlags().BoolVarP(&flagQuiet, "quiet", "q", false, "only print errors")
 
-	rootCmd.AddCommand(convertCmd, compressCmd, resizeCmd)
+	rootCmd.AddCommand(convertCmd, compressCmd, resizeCmd, stripCmd)
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, "error:", err)

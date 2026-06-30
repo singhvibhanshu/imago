@@ -17,7 +17,17 @@ if [ ! -d npm/platforms ]; then
 fi
 
 publish_one() {
-  local dir="$1"
+  local dir="${1%/}" # strip any trailing slash
+  # Skip if this exact name@version is already on npm (makes re-runs idempotent,
+  # e.g. when a tag is re-pushed — avoids a spurious "cannot publish over
+  # previously published version" failure).
+  local name version
+  name="$(node -p "require('./${dir}/package.json').name")"
+  version="$(node -p "require('./${dir}/package.json').version")"
+  if npm view "${name}@${version}" version >/dev/null 2>&1; then
+    echo "    already published, skipping: ${name}@${version}"
+    return 0
+  fi
   local otp=""
   if [ -t 0 ]; then
     read -r -p "OTP for ${dir} (blank if using a token): " otp

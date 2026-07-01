@@ -10,6 +10,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/singhvibhanshu/imago/internal/imageio"
+	"github.com/singhvibhanshu/imago/internal/tui"
 )
 
 // Shared flags available to every subcommand.
@@ -35,6 +36,11 @@ Examples:
   imago compress ./photos --target 100KB --out ./compressed   # whole folder`,
 	SilenceUsage:  true,
 	SilenceErrors: true,
+	// With no subcommand, launch the interactive TUI.
+	Args: cobra.NoArgs,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return tui.Run()
+	},
 }
 
 // Execute runs the CLI and returns a process exit code.
@@ -44,7 +50,7 @@ func Execute() int {
 	rootCmd.PersistentFlags().BoolVar(&flagOverwrite, "overwrite", false, "allow overwriting an existing file")
 	rootCmd.PersistentFlags().BoolVarP(&flagQuiet, "quiet", "q", false, "only print errors")
 
-	rootCmd.AddCommand(convertCmd, compressCmd, resizeCmd, stripCmd)
+	rootCmd.AddCommand(convertCmd, compressCmd, resizeCmd, stripCmd, tuiCmd)
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, "error:", err)

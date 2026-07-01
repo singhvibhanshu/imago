@@ -42,7 +42,30 @@ go install github.com/singhvibhanshu/imago@latest
 | `compress` | Shrink by quality, or down to a **target file size** (e.g. under 50 KB) |
 | `resize`   | Resize by exact pixel dimensions or percentage, aspect ratio preserved |
 | `strip`    | Remove hidden metadata (EXIF, **GPS location**, timestamps) — losslessly |
+| `tui`      | Interactive terminal UI — run `imago` with no arguments |
 | *(batch)*  | Point any command at a folder to process every image at once |
+
+## Interactive mode (TUI)
+
+Prefer not to remember flags? Just run imago with no arguments to open an
+interactive terminal UI — browse for an image, pick an operation, and see the
+result, all with the arrow keys:
+
+```bash
+imago            # or: imago tui
+```
+
+```
+🖼  imago  ·  interactive mode
+  What do you want to do?
+  › Convert format   Change to jpg, png, webp, gif, bmp, tiff
+    Compress         By quality or down to a target file size
+    Resize           Change pixel dimensions or scale by percent
+    Strip metadata   Remove EXIF / GPS / hidden data (lossless)
+```
+
+The full flag-based CLI below still works exactly the same — great for scripts
+and batch jobs.
 
 ## Usage
 

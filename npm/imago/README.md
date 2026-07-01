@@ -24,6 +24,7 @@ bunx @singhvibhanshu/imago --help
 - **Compress** by quality, or down to a **target file size** (e.g. under 50 KB)
 - **Resize** by pixel dimensions or percentage, aspect ratio preserved
 - **Strip** hidden metadata (EXIF, GPS location, timestamps) — losslessly
+- **Interactive TUI** — run `imago` with no arguments for a menu-driven UI
 - **Batch** process whole folders
 
 ## Examples

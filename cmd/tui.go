@@ -11,7 +11,7 @@ var tuiCmd = &cobra.Command{
 	Aliases: []string{"wizard", "interactive"},
 	Short:   "Launch the interactive guided wizard",
 	Long: `Launch imago's guided wizard: it walks you through choosing a file, an
-operation, and its options one step at a time — no flags to remember.
+operation, and its options one step at a time, with no flags to remember.
 
 Running imago with no arguments opens the same wizard.`,
 	Args: cobra.NoArgs,

@@ -1,6 +1,6 @@
 # imago
 
-**A fully offline image toolkit — convert, compress and resize images right on your own machine. Nothing is ever uploaded.**
+**A fully offline image toolkit: convert, compress and resize images right on your own machine. Nothing is ever uploaded.**
 
 Most "convert to PNG" or "compress to 50 KB" websites upload your photo to their
 servers. `imago` does the same jobs locally, so your images never leave your
@@ -23,8 +23,8 @@ bunx @singhvibhanshu/imago --help
 - **Convert** between `jpg`, `png`, `webp`, `gif`, `bmp`, `tiff`
 - **Compress** by quality, or down to a **target file size** (e.g. under 50 KB)
 - **Resize** by pixel dimensions or percentage, aspect ratio preserved
-- **Strip** hidden metadata (EXIF, GPS location, timestamps) — losslessly
-- **Interactive TUI** — run `imago` with no arguments for a menu-driven UI
+- **Strip** hidden metadata (EXIF, GPS location, timestamps), losslessly
+- **Interactive TUI**: run `imago` with no arguments for a menu-driven UI
 - **Batch** process whole folders
 
 ## Examples

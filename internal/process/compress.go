@@ -25,7 +25,7 @@ func CompressToQuality(img image.Image, format string, quality int) ([]byte, err
 //
 // Strategy:
 //  1. For lossy formats (JPEG), binary-search the highest quality that fits.
-//  2. If even the lowest quality is too large — or the format is lossless —
+//  2. If even the lowest quality is too large (or the format is lossless),
 //     progressively shrink the dimensions and try again.
 //
 // This two-stage approach is what makes "get this photo under 50 KB at roughly
@@ -89,9 +89,9 @@ func searchQuality(img image.Image, format string, maxBytes int64) ([]byte, int,
 		}
 		if int64(len(data)) <= maxBytes {
 			best, bestQ = data, mid
-			lo = mid + 1 // fits — try for better quality
+			lo = mid + 1 // fits, try for better quality
 		} else {
-			hi = mid - 1 // too big — lower quality
+			hi = mid - 1 // too big, lower quality
 		}
 	}
 	if bestQ >= 0 {

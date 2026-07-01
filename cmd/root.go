@@ -26,7 +26,7 @@ var rootCmd = &cobra.Command{
 	Short: "Local, private image conversion, compression and resizing",
 	Long: `imago is a fully offline image toolkit.
 
-Convert formats, compress to a target file size, and resize images for forms —
+Convert formats, compress to a target file size, and resize images for forms,
 all on your own machine. Your photos are never uploaded anywhere.
 
 Examples:

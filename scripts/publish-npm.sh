@@ -19,7 +19,7 @@ fi
 publish_one() {
   local dir="${1%/}" # strip any trailing slash
   # Skip if this exact name@version is already on npm (makes re-runs idempotent,
-  # e.g. when a tag is re-pushed — avoids a spurious "cannot publish over
+  # e.g. when a tag is re-pushed, avoids a spurious "cannot publish over
   # previously published version" failure).
   local name version
   name="$(node -p "require('./${dir}/package.json').name")"

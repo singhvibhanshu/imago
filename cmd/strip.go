@@ -15,7 +15,7 @@ var stripCmd = &cobra.Command{
 	Short: "Remove hidden metadata (EXIF, GPS location, etc.) from images",
 	Long: `Remove hidden metadata from images without changing the picture itself.
 
-Photos from phones and cameras embed EXIF metadata — including the exact GPS
+Photos from phones and cameras embed EXIF metadata, including the exact GPS
 location where the photo was taken, the date/time, and your device model. This
 can leak private information when you share a photo. 'strip' removes it.
 

@@ -7,7 +7,7 @@ import (
 )
 
 // StripMetadata removes metadata (EXIF, XMP, IPTC, comments, text chunks) from
-// raw image bytes WITHOUT touching the actual image data — the pixels are left
+// raw image bytes WITHOUT touching the actual image data: the pixels are left
 // byte-for-byte identical. It sniffs the format from the content.
 //
 // The second return value reports whether a lossless strip was performed. For
@@ -104,7 +104,7 @@ func keepJPEGSegment(marker byte) bool {
 		// (EXIF/XMP in APP1, IPTC/Photoshop in APP13, etc.).
 		return marker == 0xE0 || marker == 0xE2 || marker == 0xEE
 	default:
-		return true // DQT, DHT, SOF, etc. — essential, keep.
+		return true // DQT, DHT, SOF, etc.: essential, keep.
 	}
 }
 
